@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bignumber.js": "^8.0.1"
+    "bignumber.js": "^8.0.1",
+    "tslint": "^5.11.0"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",

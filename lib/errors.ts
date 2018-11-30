@@ -24,4 +24,10 @@ class InconsistentSizeError extends Error {
     }
 }
 
-export {TypeNotSupportedError, InvalidSizeError, OverflowError, InconsistentSizeError}
+class FloatingPointNotSupportedError extends Error {
+    constructor() {
+        super('This library currently only supports integers.')
+    }
+}
+
+export {TypeNotSupportedError, InvalidSizeError, OverflowError, InconsistentSizeError, FloatingPointNotSupportedError}
