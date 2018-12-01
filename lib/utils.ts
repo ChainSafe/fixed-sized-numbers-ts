@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js'
 
 // TODO: need to make this work for signed numbers as well
-const getMaxValue = (size): BigNumber => {
+const getMaxValue = (size: number): BigNumber => {
     if (size < 4096) {
         // Save some common sizes for faster lookup
         if (size === 2) return new BigNumber(0x3)
@@ -11,10 +11,9 @@ const getMaxValue = (size): BigNumber => {
         else if (size === 32) return new BigNumber(0xFFFFFFFF)
         else if (size === 64) return new BigNumber(0xFFFFFFFFFFFFFFFF)
         else if (size === 128) return new BigNumber(0xFFFFFFFFFFFFFFFF)
-    } else {
+    }
         // TODO: Ensure this handles values greater than Number.MAX_VALUE
         return new BigNumber((2**size) - 1)
-    }
 }
 
 export {getMaxValue}

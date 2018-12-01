@@ -4,14 +4,13 @@ import {getMaxValue} from "./utils";
 import MetaInteger from "./MetaInteger";
 
 
-class Integer extends MetaInteger {
+class UnsignedInteger extends MetaInteger{
 
-    public static ValidateSize(a: Integer, b: Integer) {
+    public static ValidateSize(a: UnsignedInteger, b: UnsignedInteger) {
         if (a._size !== b._size) {
             throw new InconsistentSizeError(a._size, b._size);
         }
     }
-
     // TODO: Enforce minimum (positive) size
 
 
@@ -50,43 +49,45 @@ class Integer extends MetaInteger {
         } else {
             throw new TypeNotSupportedError();
         }
+
     }
 
-    public add(i: Integer): Integer {
-        Integer.ValidateSize(this, i);
+    public add(i: UnsignedInteger): UnsignedInteger {
+        UnsignedInteger.ValidateSize(this, i);
         let res: BigNumber = this._value.plus(i._value);
         if (res.gt(getMaxValue(this._size))) {
             throw new OverflowError(this._size, res.toString(2).length);
         }
-        return new Integer(res);
+        return new UnsignedInteger(res);
     }
 
-    public sub(i: Integer): Integer {
-        Integer.ValidateSize(this, i);
+    public sub(i: UnsignedInteger): UnsignedInteger {
+        UnsignedInteger.ValidateSize(this, i);
         let res: BigNumber = this._value.minus(i._value);
         if (res.gt(getMaxValue(this._size))) {
             throw new OverflowError(this._size, res.toString(2).length);
         }
-        return new Integer(res);
+        return new UnsignedInteger(res);
     }
 
-    public mul(i: Integer): Integer {
-        Integer.ValidateSize(this, i);
+    public mul(i: UnsignedInteger): UnsignedInteger {
+        UnsignedInteger.ValidateSize(this, i);
         let res: BigNumber = this._value.multipliedBy(i._value);
         if (res.gt(getMaxValue(this._size))) {
             throw new OverflowError(this._size, res.toString(2).length);
         }
-        return new Integer(res);
+        return new UnsignedInteger(res);
     }
 
-    public div(i: Integer): Integer {
-        Integer.ValidateSize(this, i);
+    public div(i: UnsignedInteger): UnsignedInteger {
+        UnsignedInteger.ValidateSize(this, i);
         let res: BigNumber = this._value.dividedBy(i._value);
         if (res.gt(getMaxValue(this._size))) {
             throw new OverflowError(this._size, res.toString(2).length);
         }
-        return new Integer(res);
+        return new UnsignedInteger(res);
     }
 
-
 }
+
+export default UnsignedInteger;
