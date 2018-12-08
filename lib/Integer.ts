@@ -1,12 +1,19 @@
 import BigNumber from "bignumber.js";
-import {FloatingPointNotSupportedError, InconsistentSizeError, OverflowError, TypeNotSupportedError} from "./errors";
+import {
+    DivisionByZeroError,
+    FloatingPointNotSupportedError,
+    InconsistentSizeError,
+    OverflowError,
+    TypeNotSupportedError,
+    UnderflowError
+} from "./errors";
 import {getMaxValue} from "./utils";
 import MetaInteger from "./MetaInteger";
 
 
-class Integer extends MetaInteger {
+class Int extends MetaInteger {
 
-    public static ValidateSize(a: Integer, b: Integer) {
+    public static ValidateSize(a: Int, b: Int) {
         if (a._size !== b._size) {
             throw new InconsistentSizeError(a._size, b._size);
         }
@@ -52,40 +59,63 @@ class Integer extends MetaInteger {
         }
     }
 
-    public add(i: Integer): Integer {
-        Integer.ValidateSize(this, i);
+    public add(i: Int): Int {
+        Int.ValidateSize(this, i);
         let res: BigNumber = this._value.plus(i._value);
-        if (res.gt(getMaxValue(this._size))) {
-            throw new OverflowError(this._size, res.toString(2).length);
+        // Two positive ints may overflow, two negatives may underflow
+        if(this._value.isPositive() && i._value.isPositive() && this._value.gt(res)){
+            throw new OverflowError(this._size, res.toString(2).length)
+        } else if (this._value.isNegative() && i._value.isNegative()) {
+            throw new UnderflowError(this._size, res.toString(2).length)
         }
-        return new Integer(res);
+
+        return new Int(res);
     }
 
-    public sub(i: Integer): Integer {
-        Integer.ValidateSize(this, i);
-        let res: BigNumber = this._value.minus(i._value);
-        if (res.gt(getMaxValue(this._size))) {
-            throw new OverflowError(this._size, res.toString(2).length);
+    public sub(i: Int): Int {
+        Int.ValidateSize(this, i);
+        let res: BigNumber = this._value.plus(i._value);
+        // Opposing signs may overflow of underflow respectively
+        if(this._value.isPositive() && i._value.isNegative() && this._value.gt(res)){
+            throw new OverflowError(this._size, res.toString(2).length)
+        } else if (this._value.isNegative() && i._value.isPositive()) {
+            throw new UnderflowError(this._size, res.toString(2).length)
         }
-        return new Integer(res);
+
+        return new Int(res);
     }
 
-    public mul(i: Integer): Integer {
-        Integer.ValidateSize(this, i);
+    public mul(i: Int): Int {
+        Int.ValidateSize(this, i);
+
+        if(i._value.isZero() || this._value.isZero()){
+            return new Int(new BigNumber(0))
+        }
+
         let res: BigNumber = this._value.multipliedBy(i._value);
-        if (res.gt(getMaxValue(this._size))) {
-            throw new OverflowError(this._size, res.toString(2).length);
+        let divRes: BigNumber = res.dividedBy(this._value)
+
+        if (!divRes.eq(i._value)) {
+            // If only one value is negative we will underflow
+            if((this._value.isNegative() && i._value.isPositive()) ||
+                (this._value.isPositive() &&  i._value.isNegative())){
+                throw new UnderflowError(this._size, res.toString(2).length);
+            } else {
+                throw new OverflowError(this._size, res.toString(2).length);
+            }
+
         }
-        return new Integer(res);
+        return new Int(res);
     }
 
-    public div(i: Integer): Integer {
-        Integer.ValidateSize(this, i);
-        let res: BigNumber = this._value.dividedBy(i._value);
-        if (res.gt(getMaxValue(this._size))) {
-            throw new OverflowError(this._size, res.toString(2).length);
+    public div(i: Int): Int {
+        Int.ValidateSize(this, i);
+
+        if(i._value.isZero()){
+            throw new DivisionByZeroError();
         }
-        return new Integer(res);
+
+        return new Int(this._value.dividedBy(i._value));
     }
 
 

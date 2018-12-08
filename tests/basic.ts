@@ -1,4 +1,4 @@
-import UnsignedNumber from '../lib/UnsignedNumber';
+import UnsignedNumber from '../lib/Uint';
 import { expect, assert } from 'chai';
 import 'mocha';
 import BigNumber from 'bignumber.js'

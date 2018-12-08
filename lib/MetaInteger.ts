@@ -8,7 +8,7 @@ abstract class MetaInteger {
     abstract add(n: MetaInteger): MetaInteger;
     abstract sub(n: MetaInteger): MetaInteger;
     abstract mul(n: MetaInteger): MetaInteger;
-    abstract div(n: MetaInteger): MetaInteger
+    abstract div(n: MetaInteger): MetaInteger;
 }
 
 export default MetaInteger;

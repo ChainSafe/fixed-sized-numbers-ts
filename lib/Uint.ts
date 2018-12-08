@@ -1,12 +1,20 @@
 import BigNumber from "bignumber.js";
-import {FloatingPointNotSupportedError, InconsistentSizeError, OverflowError, TypeNotSupportedError} from "./errors";
+import {
+    DivisionByZeroError,
+    FloatingPointNotSupportedError,
+    InconsistentSizeError,
+    OverflowError,
+    TypeNotSupportedError,
+    UnderflowError
+} from "./errors";
 import {getMaxValue} from "./utils";
 import MetaInteger from "./MetaInteger";
+import UintType from "./UintType";
 
 
-class UnsignedInteger extends MetaInteger{
+class Uint extends MetaInteger{
 
-    public static ValidateSize(a: UnsignedInteger, b: UnsignedInteger) {
+    public static ValidateSize(a: Uint, b: Uint) {
         if (a._size !== b._size) {
             throw new InconsistentSizeError(a._size, b._size);
         }
@@ -52,42 +60,56 @@ class UnsignedInteger extends MetaInteger{
 
     }
 
-    public add(i: UnsignedInteger): UnsignedInteger {
-        UnsignedInteger.ValidateSize(this, i);
+    public add(i: this): this {
+        Uint.ValidateSize(this, i);
+
         let res: BigNumber = this._value.plus(i._value);
-        if (res.gt(getMaxValue(this._size))) {
-            throw new OverflowError(this._size, res.toString(2).length);
+
+        if(this._value.gt(res)){
+            throw new OverflowError(this._size, res.toString(2).length)
         }
-        return new UnsignedInteger(res);
+
+        return new Uint(res);
     }
 
-    public sub(i: UnsignedInteger): UnsignedInteger {
-        UnsignedInteger.ValidateSize(this, i);
+    public sub(i: T): T {
+        T.ValidateSize(this, i);
+
         let res: BigNumber = this._value.minus(i._value);
-        if (res.gt(getMaxValue(this._size))) {
-            throw new OverflowError(this._size, res.toString(2).length);
+
+        if (this._value.lt(res)) {
+            throw new UnderflowError(this._size, res.toString(2).length);
         }
-        return new UnsignedInteger(res);
+
+        return new T(res);
     }
 
-    public mul(i: UnsignedInteger): UnsignedInteger {
-        UnsignedInteger.ValidateSize(this, i);
+    public mul<T>(i: T): T {
+        T.ValidateSize(this, i);
+
+        if(i._value.isZero() || this._value.isZero()){
+            return new T(new BigNumber(0))
+        }
+
         let res: BigNumber = this._value.multipliedBy(i._value);
-        if (res.gt(getMaxValue(this._size))) {
+        let divRes: BigNumber = res.dividedBy(this._value)
+
+        if (!divRes.eq(i._value)) {
             throw new OverflowError(this._size, res.toString(2).length);
         }
-        return new UnsignedInteger(res);
+        return new T(res);
     }
 
-    public div(i: UnsignedInteger): UnsignedInteger {
-        UnsignedInteger.ValidateSize(this, i);
-        let res: BigNumber = this._value.dividedBy(i._value);
-        if (res.gt(getMaxValue(this._size))) {
-            throw new OverflowError(this._size, res.toString(2).length);
+    public div<T>(i: T): T {
+        T.ValidateSize(this, i);
+
+        if(i._value.isZero()){
+            throw new DivisionByZeroError();
         }
-        return new UnsignedInteger(res);
+
+        return new T(this._value.dividedBy(i._value));
     }
 
 }
 
-export default UnsignedInteger;
+export default Uint;
