@@ -19,7 +19,7 @@ Or preform safe math using the methods provided
 ```javascript
 import { Uint8, Int8 } from 'fixed-sized-numbers-ts'
 let safe72 = Uint8(72)
-let safeNegative54 = Int(-54)
+let safeNegative54 = Int8(-54)
 
 console.log(safe72)
 /*
@@ -45,8 +45,8 @@ console.log(safeNegative54)
     sub: [Function],
     mul: [Function],
     div: [Function],
-    _int8: true,
     _isPositive: false
+    _int8: true,
 }
 */
 ```
@@ -56,7 +56,7 @@ Upgrade any number simply by feeding it to a new constructor function
 >Note: This library freezes all objects, so you cannot simply change the _value of a constructed type. This is good and forces immutability.
 
 ```javascript
-import { Uint8, Uin64 } from 'fixed-sized-numbers-ts'
+import { Uint8, Uin64, Int8 } from 'fixed-sized-numbers-ts'
 let safe72 = Uint8(72)
 
 console.log(safe72)
@@ -79,13 +79,30 @@ console.log(safeLarger72)
 /*
 {
     _value: 72,
+    _size: 64,
+    validateSize: [Function],
+    add: [Function],
+    sub: [Function],
+    mul: [Function],
+    div: [Function],
+    _uint64: true
+}
+*/
+
+let signed72 = Int8(safeLarger72)
+
+console.log(safeLarger72)
+/*
+{
+    _value: 72,
     _size: 8,
     validateSize: [Function],
     add: [Function],
     sub: [Function],
     mul: [Function],
     div: [Function],
-    _uint8: true
+    isPositive: true,
+    _int8: true
 }
 */
 
