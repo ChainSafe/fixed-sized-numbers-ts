@@ -2,7 +2,6 @@ version: 2
 jobs:
   lint:
     docker:
-      # specify the version you desire here
       - image: circleci/node:10.11
     steps:
       - checkout
@@ -11,7 +10,6 @@ jobs:
           command: npm install && npm run lint
   test:
     docker:
-      # specify the version you desire here
       - image: circleci/node:10.11
     steps:
       - checkout
