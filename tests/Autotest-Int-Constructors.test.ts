@@ -6,19 +6,19 @@ import {Int} from "../lib/Interfaces";
 getInts().forEach((tc) => {
     describe(`Constructor tests for ${tc.name}`, () => {
         it("should construct properly with no given value", () => {
-            const int: Int = tc.constructor()
+            const int: Int = tc.constructor();
             validateInt(int, tc.flag, tc.size, "0");
         });
         it("should construct properly when given a string value of 0", () => {
-            const int: Int = tc.constructor("0")
+            const int: Int = tc.constructor("0");
             validateInt(int, tc.flag, tc.size, "0");
         });
         it("should construct properly when given a BigNumber value of 0", () => {
-            const int: Int = tc.constructor(new BigNumber(0))
+            const int: Int = tc.constructor(new BigNumber(0));
             validateInt(int, tc.flag, tc.size, "0");
         });
         it("should construct properly when given a string value of 1", () => {
-            const int: Int = tc.constructor("1")
+            const int: Int = tc.constructor("1");
             validateInt(int, tc.flag, tc.size, "1");
         });
         it("should construct properly when given a BigNumber value of 1", () => {
@@ -26,7 +26,7 @@ getInts().forEach((tc) => {
             validateInt(int, tc.flag, tc.size, "1");
         });
         it("should construct properly when given a string value of -1", () => {
-            const int: Int = tc.constructor("-1")
+            const int: Int = tc.constructor("-1");
             validateInt(int, tc.flag, tc.size, "-1");
         });
         it("should construct properly when given a BigNumber value of -1", () => {
@@ -34,7 +34,7 @@ getInts().forEach((tc) => {
             validateInt(int, tc.flag, tc.size, "-1");
         });
         it(`should construct properly when given a string value of ${tc.max}`, () => {
-            const int: Int = tc.constructor(tc.max)
+            const int: Int = tc.constructor(tc.max);
             validateInt(int, tc.flag, tc.size, tc.max);
         });
         it(`should construct properly when given a BigNumber value of ${tc.max}`, () => {
@@ -42,7 +42,7 @@ getInts().forEach((tc) => {
             validateInt(int, tc.flag, tc.size, tc.max);
         });
         it(`should construct properly when given a string value of ${tc.min}`, () => {
-            const int: Int = tc.constructor(tc.min)
+            const int: Int = tc.constructor(tc.min);
             validateInt(int, tc.flag, tc.size, tc.min);
         });
         it(`should construct properly when given a BigNumber value of ${tc.min}`, () => {

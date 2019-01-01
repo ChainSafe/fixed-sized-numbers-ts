@@ -10,15 +10,15 @@ getUints().forEach((tc) => {
             validateUint(uint, tc.flag, tc.size, "0");
         });
         it("should construct properly when given a string value of 0", () => {
-            const uint: Uint = tc.constructor("0")
+            const uint: Uint = tc.constructor("0");
             validateUint(uint, tc.flag, tc.size, "0");
         });
         it("should construct properly when given a BigNumber value of 0", () => {
-            const uint: Uint = tc.constructor(new BigNumber(0))
+            const uint: Uint = tc.constructor(new BigNumber(0));
             validateUint(uint, tc.flag, tc.size, "0");
         });
         it("should construct properly when given a string value of 1", () => {
-            const uint: Uint = tc.constructor("1")
+            const uint: Uint = tc.constructor("1");
             validateUint(uint, tc.flag, tc.size, "1");
         });
         it("should construct properly when given a BigNumber value of 1", () => {
@@ -26,7 +26,7 @@ getUints().forEach((tc) => {
             validateUint(uint, tc.flag, tc.size, "1");
         });
         it(`should construct properly when given a string value of ${tc.max}`, () => {
-            const uint: Uint = tc.constructor(tc.max)
+            const uint: Uint = tc.constructor(tc.max);
             validateUint(uint, tc.flag, tc.size, tc.max);
         });
         it(`should construct properly when given a BigNumber value of ${tc.max}`, () => {

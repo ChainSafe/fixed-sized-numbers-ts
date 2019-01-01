@@ -156,7 +156,7 @@ export const getInts = (): IntTypeTestInterface[]  => {
         t.oversizedInputError = new InvalidSizeError(t.size + 1);
         return t;
     });
-}
+};
 
 export const getUints = (): UintTypeTestInterface[] => {
     return UintTypes.map((t) => {
@@ -168,4 +168,4 @@ export const getUints = (): UintTypeTestInterface[] => {
         t.negativeOneInputError = new NegativeUnsignedError(-1);
         return t;
     });
-}
+};
