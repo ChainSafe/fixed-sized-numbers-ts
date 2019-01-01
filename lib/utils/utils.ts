@@ -3,8 +3,7 @@ import { TypeNotSupportedError } from "../errors";
 import { MetaInteger } from "../Interfaces";
 
 const getSize = (num) => {
-    if (typeof num === "number") { return getNumberSize(num);
-    } else if (typeof num === "string") { return getStringNumberSize(num);
+    if (typeof num === "string") { return getStringNumberSize(num);
     } else if (BigNumber.isBigNumber(num)) { return getBigNumberSize(num);
     } else { throw new TypeNotSupportedError(); }
 };

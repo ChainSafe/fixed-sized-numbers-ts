@@ -8,13 +8,11 @@ import { FloatingPointNotSupportedError, InvalidSizeError } from "../errors";
 const emptyValueToZero = (x) => x ? x : 0;
 const notFloat = (x: number): boolean => x % 1 === 0;
 
-const inputTypeToBigNumber = (value?: number | string | BigNumber): BigNumber | Error => {
+const inputTypeToBigNumber = (value?: string | BigNumber): BigNumber | Error => {
     if (value instanceof BigNumber) {
         return value.isInteger() ? value : new FloatingPointNotSupportedError();
     } else if (typeof value === "string") {
         return notFloat(parseInt(value, 10)) ? new BigNumber(value) : new FloatingPointNotSupportedError();
-    } else if (typeof value === "number") {
-        return notFloat(value) ? new BigNumber(value) : new FloatingPointNotSupportedError();
     }
 };
 

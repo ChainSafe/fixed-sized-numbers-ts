@@ -36,17 +36,17 @@ const UintFactory = <T>(size: number) => (identifier: object) => pipe(
     Object.freeze,
 );
 
-const Uint8 = (value?: number | string | BigNumber): Uint8 => UintFactory<Uint8>(8)({_uint8: true})(value);
+const Uint8 = (value?: string | BigNumber): Uint8 => UintFactory<Uint8>(8)({_uint8: true})(value);
 
-const Uint16 = (value?: number | string | BigNumber): Uint16 => UintFactory<Uint16>(16)({_uint16: true})(value);
+const Uint16 = (value?: string | BigNumber): Uint16 => UintFactory<Uint16>(16)({_uint16: true})(value);
 
-const Uint32 = (value?: number | string | BigNumber): Uint32 => UintFactory<Uint32>(32)({_uint32: true})(value);
+const Uint32 = (value?: string | BigNumber): Uint32 => UintFactory<Uint32>(32)({_uint32: true})(value);
 
-const Uint64 = (value?: string): Uint64 => UintFactory<Uint64>(64)({_uint64: true})(value);
+const Uint64 = (value?: string | BigNumber): Uint64 => UintFactory<Uint64>(64)({_uint64: true})(value);
 
-const Uint128 = (value?: string): Uint128 => UintFactory<Uint128>(128)({_uint128: true})(value);
+const Uint128 = (value?: string | BigNumber): Uint128 => UintFactory<Uint128>(128)({_uint128: true})(value);
 
-const Uint256 = (value?: string): Uint256 => UintFactory<Uint256>(256)({_uint256: true})(value);
+const Uint256 = (value?: string | BigNumber): Uint256 => UintFactory<Uint256>(256)({_uint256: true})(value);
 
 // Type Checkers
 const isUint8 = (x: Uint): x is Uint8 => (x as Uint8)._uint8;
