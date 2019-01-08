@@ -8,16 +8,11 @@ import BigNumber from "bignumber.js";
  * @param {Error} expected - Error with the expected message
  */
 export const assertErrorMsg = (fn , expected: Error) => {
-    let err = null;
     try {
         fn();
-    } catch (e) {
-        err = e;
-    }
-    if (!err) {
         expect.fail("No error thrown");
-    } else {
-        expect(err.message).to.equal(expected.message);
+    } catch (e) {
+        expect(e.message).to.equal(expected.message);
     }
 };
 
