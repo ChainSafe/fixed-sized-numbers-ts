@@ -28,8 +28,9 @@ const sizeCheckUint = (size: number) => (value: BigNumber | Error): BigNumber | 
 const sizeCheckInt = (size: number) => (value: BigNumber | Error): BigNumber | Error => {
     if (value instanceof Error) { return value; }
     const numSize = value.toString(2).length;
+    // If number is positive add 1 to account for sign (+/-)
     const adjustedSize = value >= new BigNumber(0) ? numSize + 1 : numSize;
-    return adjustedSize <= size ? value : new InvalidSizeError(numSize);
+    return adjustedSize <= size ? value : new InvalidSizeError(adjustedSize);
 };
 
 export {
