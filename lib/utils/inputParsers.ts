@@ -13,6 +13,9 @@ const inputTypeToBigNumber = (value?: string | BigNumber): BigNumber | Error => 
         return value.isInteger() ? value : new FloatingPointNotSupportedError();
     } else if (typeof value === "string") {
         return notFloat(parseInt(value, 10)) ? new BigNumber(value) : new FloatingPointNotSupportedError();
+    } else if (!value) {
+        // No input provided
+        return new BigNumber(0);
     }
 };
 
