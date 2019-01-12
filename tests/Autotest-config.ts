@@ -149,8 +149,8 @@ export const getInts = (): IntTypeTestInterface[]  => {
     return IntTypes.map((t) => {
         t.max = new BigNumber(2).pow(t.size - 1).minus(1).toString();
         t.min = new BigNumber(t.max).times(-1).toString();
-        t.midpoint = new BigNumber(2).pow(t.size).toString();
-        t.midpointNeg = new BigNumber(t.midpoint).times(-1).toString();
+        t.midpoint = new BigNumber(2).pow(t.size - 2).toString();
+        t.midpointNeg = new BigNumber(t.midpoint).times(- 1).toString();
         t.underflowError = new InvalidSizeError(t.size + 1);
         t.overflowError = new InvalidSizeError(t.size + 1);
         t.oversizedInputError = new InvalidSizeError(t.size + 1);
@@ -162,7 +162,7 @@ export const getUints = (): UintTypeTestInterface[] => {
     return UintTypes.map((t) => {
         t.max = new BigNumber(2).pow(t.size).minus(1).toString();
         t.midpoint = new BigNumber(2).pow(t.size - 1).toString();
-        t.underflowError = new InvalidSizeError(t.size + 1);
+        t.underflowError = new NegativeUnsignedError(-1);
         t.overflowError = new InvalidSizeError(t.size + 1);
         t.oversizedInputError = new InvalidSizeError(t.size + 1);
         t.negativeOneInputError = new NegativeUnsignedError(-1);

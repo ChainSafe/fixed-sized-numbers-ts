@@ -29,25 +29,25 @@ getUints().forEach((tc) => {
 
             validateUint(resTwo, tc.flag, tc.size, "2");
         });
-        it(`should should not allow overflow when adding ${tc.max} to 1`, () => {
+        it(`should not allow overflow when adding ${tc.max} to 1`, () => {
             const one: any = tc.constructor("1");
             const limit: any = tc.constructor(tc.max);
 
             assertErrorMsg(() => limit.add(one), tc.overflowError);
         });
-        it(`should should not allow underflow when subtracting 1 from 0`, () => {
+        it(`should not allow underflow when subtracting 1 from 0`, () => {
             const one: any = tc.constructor("1");
             const zero: any = tc.constructor("0");
 
             assertErrorMsg(() => zero.sub(one), tc.underflowError);
         });
-        it(`should should not allow overflow when multiplying ${tc.midpoint} by 2`, () => {
+        it(`should not allow overflow when multiplying ${tc.midpoint} by 2`, () => {
             const limit: any = tc.constructor(tc.midpoint);
             const two: any = tc.constructor("2");
 
             assertErrorMsg(() => limit.mul(two), tc.overflowError);
         });
-        it(`should should not allow division by 0`, () => {
+        it(`should not allow division by 0`, () => {
             const zero: any = tc.constructor("0");
             const two: any = tc.constructor("2");
 

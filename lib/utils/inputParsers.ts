@@ -13,6 +13,9 @@ const inputTypeToBigNumber = (value?: string | BigNumber): BigNumber | Error => 
         return value.isInteger() ? value : new FloatingPointNotSupportedError();
     } else if (typeof value === "string") {
         return notFloat(parseInt(value, 10)) ? new BigNumber(value) : new FloatingPointNotSupportedError();
+    } else if (!value) {
+        // No input provided
+        return new BigNumber(0);
     }
 };
 
@@ -25,8 +28,9 @@ const sizeCheckUint = (size: number) => (value: BigNumber | Error): BigNumber | 
 const sizeCheckInt = (size: number) => (value: BigNumber | Error): BigNumber | Error => {
     if (value instanceof Error) { return value; }
     const numSize = value.toString(2).length;
+    // If number is positive add 1 to account for sign (+/-)
     const adjustedSize = value >= new BigNumber(0) ? numSize + 1 : numSize;
-    return adjustedSize <= size ? value : new InvalidSizeError(numSize);
+    return adjustedSize <= size ? value : new InvalidSizeError(adjustedSize);
 };
 
 export {

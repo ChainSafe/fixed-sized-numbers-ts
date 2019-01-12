@@ -10,7 +10,7 @@ import { Uint128, Uint16, Uint256, Uint32, Uint64, Uint8 } from "../Uint";
 
 //  Validators
 // TODO: stop exporting once factories are localized to this file
-const checkDivByZero = (divisor: BigNumber) => (dividend: BigNumber) => (quotient: BigNumber) => !divisor.isZero() && !dividend.isZero() ? quotient : new DivisionByZeroError();
+const checkDivByZero = (dividend: BigNumber) => (divisor: BigNumber) => (quotient: BigNumber) => !divisor.isZero() ? quotient : new DivisionByZeroError();
 
 // Math Method Factories ( Need to return any type so that it can receive type from Generic )
 const addFactory = (resultTyper: resTyperUint | resTyperInt) => (initial: MetaInteger) => (addend: Uint | Int): any => {
