@@ -113,36 +113,36 @@ const IntTypes: IntTypeTestInterface[] = [
         flag: "_int8",
         size: 8,
     },
-    // {
-    //     name: "Int16",
-    //     constructor: Int16,
-    //     flag: "_int16",
-    //     size: 16,
-    // },
-    // {
-    //     name: "Int32",
-    //     constructor: Int32,
-    //     flag: "_int32",
-    //     size: 32,
-    // },
-    // {
-    //     name: "Int64",
-    //     constructor: Int64,
-    //     flag: "_int64",
-    //     size: 64,
-    // },
-    // {
-    //     name: "Int128",
-    //     constructor: Int128,
-    //     flag: "_int128",
-    //     size: 128,
-    // },
-    // {
-    //     name: "Int256",
-    //     constructor: Int256,
-    //     flag: "_int256",
-    //     size: 256,
-    // },
+    {
+        name: "Int16",
+        constructor: Int16,
+        flag: "_int16",
+        size: 16,
+    },
+    {
+        name: "Int32",
+        constructor: Int32,
+        flag: "_int32",
+        size: 32,
+    },
+    {
+        name: "Int64",
+        constructor: Int64,
+        flag: "_int64",
+        size: 64,
+    },
+    {
+        name: "Int128",
+        constructor: Int128,
+        flag: "_int128",
+        size: 128,
+    },
+    {
+        name: "Int256",
+        constructor: Int256,
+        flag: "_int256",
+        size: 256,
+    },
 ];
 
 export const getInts = (): IntTypeTestInterface[]  => {
@@ -162,7 +162,7 @@ export const getUints = (): UintTypeTestInterface[] => {
     return UintTypes.map((t) => {
         t.max = new BigNumber(2).pow(t.size).minus(1).toString();
         t.midpoint = new BigNumber(2).pow(t.size - 1).toString();
-        t.underflowError = new InvalidSizeError(t.size + 1);
+        t.underflowError = new NegativeUnsignedError(-1);
         t.overflowError = new InvalidSizeError(t.size + 1);
         t.oversizedInputError = new InvalidSizeError(t.size + 1);
         t.negativeOneInputError = new NegativeUnsignedError(-1);
